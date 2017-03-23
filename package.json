@@ -1,0 +1,23 @@
+{
+  "name": "user-list-frontend",
+  "version": "1.0.0",
+  "description": "Front-End for User-List",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Angular",
+    "Front-End",
+    "users",
+    "list"
+  ],
+  "author": "Dmitry Scheglov <Dmitry.Scheglov@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-webserver": "^0.9.1"
+  },
+  "dependencies": {}
+}
