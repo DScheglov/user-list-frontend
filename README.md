@@ -42,5 +42,5 @@ See [Back-End repository](https://github.com/DScheglov/user-list-backend.git)
 
 
 ## Demo
- - Front-End: [https://dscheglov.github.io/user-list-frontend/](https://dscheglov.github.io/user-list-frontend/)
+ - Front-End: [http:///176.107.177.23:88/](http:///176.107.177.23:88/)
  - Linked to Back-End: [http://176.107.177.23:8800/api/users/](http://176.107.177.23:8800/api/users/)
