@@ -2,7 +2,7 @@
 (function (global) {
   'use strict';
   global.userRestApiConfig = {
-    "host": "http://ubuntu-local",
+    "host": "http://localhost",
     "path": "/api/users",
     "port": "8888"
   };

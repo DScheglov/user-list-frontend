@@ -1,0 +1,12 @@
+.container
+  h2 User Details
+  .row.col-md-4
+    form(ng-submit='$ctrl.accept()', name='userForm')
+      .form-group
+        label(for='userName') User name
+        input#userName.form-control(type='text', ng-model='$ctrl.user.name', placeholder='Name')
+      .form-group
+        label(for='userPermissions') Permissions
+        input#userPermissions.form-control(type='text', ng-model='$ctrl.user.permissions', placeholder='Permissions')
+      button.btn.btn-default(type='button', ng-click='$ctrl.cancel()') Cancel
+      button.btn.btn-primary(type='submit', ng-disabled='!$ctrl.submitAllowed()') Submit
