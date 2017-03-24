@@ -11,7 +11,7 @@
   User.subscribers = [];
 
   User.setState = setState;
-  User.errorHandler = errorHandler;
+  User.errorHandler = errorHandler.bind( User );
   User.subscribe = subscribe;
   User.emit = emit;
 

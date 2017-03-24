@@ -19,5 +19,6 @@ angular
         controller: 'formController',
         controllerAs: '$ctrl'
       })
+      .otherwise({ redirectTo: '/users' })
       ;
   });
