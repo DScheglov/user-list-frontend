@@ -11,53 +11,68 @@
   User.subscribers = [];
 
   User.setState = setState;
+  User.successHandler = successHandler.bind( User );
   User.errorHandler = errorHandler.bind( User );
   User.subscribe = subscribe;
   User.emit = emit;
 
-  function get($http, apiUrl) {
+  function get($http, apiUrl, callback) {
     var self = this;
     return $http.get(apiUrl).then(
-      function (response) { self.setState( { list: response.data } ) },
-      self.errorHandler
+      self.successHandler.bind(null, callback, 'list'),
+      self.errorHandler.bind(null, callback)
     )
   }
 
-  function create($http, apiUrl, obj) {
+  function create($http, apiUrl, obj, callback) {
     var self = this;
     return $http.post(apiUrl, obj).then(
-      function(response) { self.setState( { obj: response.data } ) },
-      self.errorHandler
+      self.successHandler.bind(null, callback, 'obj'),
+      self.errorHandler.bind(null, callback)
     )
   }
 
-  function getById($http, apiUrl, id) {
+  function getById($http, apiUrl, id, callback) {
     var self = this;
     return $http.get(apiUrl + '/' + id).then(
-      function(response) { self.setState( { obj: response.data } ) },
-      self.errorHandler
+      self.successHandler.bind(null, callback, 'obj'),
+      self.errorHandler.bind(null, callback)
     )
   }
 
-  function update($http, apiUrl, obj) {
+  function update($http, apiUrl, obj, callback) {
     var self = this;
     return $http.put(apiUrl + '/' + obj.id, obj).then(
-      function(response) { self.setState ( { obj: response.data } ) },
-      self.errorHandler
+      self.successHandler.bind(null, callback, 'obj'),
+      self.errorHandler.bind(null, callback)
     );
   }
 
-  function delById($http, apiUrl, id) {
+  function delById($http, apiUrl, id, callback) {
     var self = this;
     return $http.delete(apiUrl + '/' + id).then(
-      function(response) { self.setState ( { removeId: id } ) },
-      self.errorHandler
+      self.successHandler.bind(null, callback, { 'removeId': id } ),
+      self.errorHandler.bind(null, callback)
     );
   }
 
-  function errorHandler(response) {
+  function successHandler(callback, prop, response) {
+    var state = {};
+    if (typeof prop === 'string') {
+      state[prop] = response.data;
+    } else {
+      state = prop;
+    }
+    exec(callback, null, response.data);
+    this.setState(state);
+    return response;
+  }
+
+  function errorHandler(callback, response) {
     this.errorCode = response.status;
     this.error = response.data;
+    exec(callback, this.error);
+    return response;
   }
 
   function subscribe(handler) {
@@ -106,6 +121,13 @@
       ) && this.emit()
     }
 
+  }
+
+  function exec(callback) {
+    if (typeof(callback) !== 'function') return;
+    return callback.apply(null,
+      Array.prototype.slice.call(arguments, 1)
+    )
   }
 
   angular
